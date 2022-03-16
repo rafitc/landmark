@@ -34,7 +34,9 @@ long previousMillis;
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE };
 
 IPAddress ip(192, 168, 1, 82);
-IPAddress myDns(192, 168, 0, 1);
+IPAddress myDns(8, 8, 8, 8);
+IPAddress gateway(192, 168, 1, 1);
+IPAddress subnet(255, 255, 255, 0);
 
 EthernetClient client;
 PubSubClient mqttClient;
@@ -62,13 +64,18 @@ void callback(char* topic, byte* payload, unsigned int length) {
     Serial.println("Turn On Motor Command Received ");
     mqttClient.publish(MESSAGES, "Motor ONe ON");
     motorConditionFlag = true;
-    turnOnMotorOne();
+    if(!motorFunctionFlag){
+      turnOnMotorOne();
+    }
+    
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0) {
     Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(MESSAGES, "Motor ONe OFFF");
     motorConditionFlag = true;
-    turnOffMotorOne();
+    if(motorFunctionFlag){
+      turnOffMotorOne(); 
+    }
   }
 }
 
@@ -82,24 +89,24 @@ void setup() {
   //-----ethernet setup
   // start the Ethernet connection:
   Serial.println("Initialize Ethernet with DHCP:");
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    // Check for Ethernet hardware present
-    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-      while (true) {
-        delay(1); // do nothing, no point running without Ethernet hardware
-      }
-    }
-    if (Ethernet.linkStatus() == LinkOFF) {
-      Serial.println("Ethernet cable is not connected.");
-    }
-    // try to congifure using IP address instead of DHCP:
-    Ethernet.begin(mac, ip, myDns);
-  } else {
-    Serial.print("  DHCP assigned IP ");
-    Serial.println(Ethernet.localIP());
-  }
+  //  if (Ethernet.begin(mac) == 0) {
+  //    Serial.println("Failed to configure Ethernet using DHCP");
+  //    // Check for Ethernet hardware present
+  //    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+  //      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+  //      while (true) {
+  //        delay(1); // do nothing, no point running without Ethernet hardware
+  //      }
+  //    }
+  //    if (Ethernet.linkStatus() == LinkOFF) {
+  //      Serial.println("Ethernet cable is not connected.");
+  //    }
+  //    // try to congifure using IP address instead of DHCP:
+  //    Ethernet.begin(mac, ip, myDns);
+  //  } else {
+  Ethernet.begin(mac, ip, myDns,gateway,subnet);
+  Serial.print("  DHCP assigned IP ");
+  Serial.println(Ethernet.localIP());
   // give the Ethernet shield a second to initialize:
   delay(1000);
 
@@ -110,7 +117,7 @@ void setup() {
   mqttClient.setCallback(callback);
 
   //mqttClient.setServer("test.mosquitto.org", 1883);
-  mqttClient.setServer("192.168.1.80", 1883); //for using local broker
+  mqttClient.setServer("192.168.1.85", 1883); //for using local broker
   //mqttClient.setServer("broker.hivemq.com",1883);
 
   Serial.println(F("MQTT client configured"));
@@ -164,7 +171,7 @@ void listenData() {
 }
 
 void turnOnMotorOne() {
-//Turn Off by 2Second control of starter box 
+  //Turn Off by 2Second control of starter box
   motorFunctionFlag = true;
   //M1_ON_RELAY
   digitalWrite(M1_ON_RELAY, !HIGH);
@@ -172,7 +179,7 @@ void turnOnMotorOne() {
   digitalWrite(M1_ON_RELAY, !LOW);
 }
 void turnOffMotorOne() {
-//Turn Off by 2Second control of starter box 
+  //Turn Off by 2Second control of starter box
   motorFunctionFlag = false;
   //M1_OFF_RELAY
   digitalWrite(M1_OFF_RELAY, !HIGH);

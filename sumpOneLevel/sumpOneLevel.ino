@@ -41,7 +41,9 @@ long previousMillis;
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
 IPAddress ip(192, 168, 1, 81);
-IPAddress myDns(192, 168, 0, 1);
+IPAddress myDns(192, 168, 1, 1);
+IPAddress gateway(192, 168, 1, 1);
+IPAddress subnet(255, 255, 255, 0);
 
 EthernetClient client;
 PubSubClient mqttClient;
@@ -75,49 +77,46 @@ void setup() {
   delay(100);
 
   //-----ethernet setup
+  //Removed DHCP setting, coz. this is a local network with no internet = so, used static IP.
   // start the Ethernet connection:
-  Serial.println("Initialize Ethernet with DHCP:");
-  if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-    // Check for Ethernet hardware present
-    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-      Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-      while (true) {
-        delay(1); // do nothing, no point running without Ethernet hardware
-      }
-    }
-    if (Ethernet.linkStatus() == LinkOFF) {
-      Serial.println("Ethernet cable is not connected.");
-    }
-    // try to congifure using IP address instead of DHCP:
-    Ethernet.begin(mac, ip, myDns);
-  } else {
-    Serial.print("  DHCP assigned IP ");
-    Serial.println(Ethernet.localIP());
-  }
-  // give the Ethernet shield a second to initialize:
-  delay(1000);
+  Serial.println("Initialize Ethernet with IP:");
+  // Check for Ethernet hardware present
+//  if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+//    Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+//    while (true) {
+//      delay(1); // do nothing, no point running without Ethernet hardware
+//    }
+//  }
+//  if (Ethernet.linkStatus() == LinkOFF) {
+//    Serial.println("Ethernet cable is not connected.");
+//  }
+  // try to congifure using IP address instead of DHCP:
+  Ethernet.begin(mac, ip, gateway, subnet);
+  Serial.print("  DHCP assigned IP ");
+  Serial.println(Ethernet.localIP());
+// give the Ethernet shield a second to initialize:
+delay(1000);
 
-  Serial.println(F("SUMP 1 Level Testor"));
+Serial.println(F("SUMP 1 Level Testor"));
 
-  //setup MQTT client
-  mqttClient.setClient(client);
-  mqttClient.setCallback(callback);
+//setup MQTT client
+mqttClient.setClient(client);
+mqttClient.setCallback(callback);
 
-  //mqttClient.setServer("test.mosquitto.org", 1883);
-  mqttClient.setServer("192.168.1.80", 1883); //for using local broker
-  //mqttClient.setServer("broker.hivemq.com",1883);
+//mqttClient.setServer("test.mosquitto.org", 1883);
+mqttClient.setServer("192.168.1.85", 1883); //for using local broker
+//mqttClient.setServer("broker.hivemq.com",1883);
 
-  Serial.println(F("MQTT client configured"));
+Serial.println(F("MQTT client configured"));
 
-  Serial.print(" \n Trying to connect as a client -> ");
-  int connectionflag = mqttClient.connect(CLIENT_ID);
-  Serial.println(connectionflag);
+Serial.print(" \n Trying to connect as a client -> ");
+int connectionflag = mqttClient.connect(CLIENT_ID);
+Serial.println(connectionflag);
 
-  boolean r;
-  r = mqttClient.subscribe(DASH_MOTORSTATUS);
-  Serial.println("subscribe status MOTORSWITCH and online ");
-  Serial.println(r); 
+boolean r;
+r = mqttClient.subscribe(DASH_MOTORSTATUS);
+Serial.println("subscribe status MOTORSWITCH and online ");
+Serial.println(r);
 }
 
 
@@ -155,11 +154,11 @@ int checkLevel() {
     motorConditionFlag = true;
     //motor on time
     //motorOnFlag = true;
-    if(!onTimStartFlag){
+    if (!onTimStartFlag) {
       onTime = millis();
       onTimStartFlag = true;
     }
-    
+
     return 3;
   }
   return 4;
@@ -186,7 +185,7 @@ void dryRunCheck() {
       motorConditionFlag = false;
       onTimStartFlag = false;
       //stop the motor and start degeneration time.
-      if(firstDegenFlag){
+      if (firstDegenFlag) {
         degenStartTime = millis();
         firstDegenFlag = false;
       }
@@ -264,7 +263,7 @@ bool sendData() {
       return false;
     }
   }
-  if(onTimStartFlag){
+  if (onTimStartFlag) {
     Serial.println("Calling Dry Run");
     dryRunCheck();
   }
