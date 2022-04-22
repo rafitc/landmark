@@ -1,0 +1,3870 @@
+[
+    {
+        "id": "bd525b83beb32238",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4c58e06408ccbfc1",
+        "type": "ui_template",
+        "z": "bd525b83beb32238",
+        "group": "339d0edc.4ffe02",
+        "name": "Node-Red Dashboard Custom CSS",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\nroot, a, button, p, div {\n    -webkit-user-select: none !important;\n}\n\nbody {\n    background: -webkit-linear-gradient(\n    55deg,\n    #009785 0%,\n    #245aa5 50%,\n    #b800e9 100%\n    );\n    -webkit-touch-callout: none !important;\n}\n\nbody.nr-dashboard-theme md-toolbar,\nbody.nr-dashboard-theme md-content md-card {\n    background-color: transparent !important;\n    color: #FFFFFF;\n}\n\nui-card-panel {\n    background-color: rgba(255,255,255,0.1) !important;\n    border-radius: 10px !important;\n}\n    \n#Homey_Dashboard_Navigation {\n    background-color: transparent !important;\n    border-radius: 10px !important;\n}\n\n.md-card.md-default-theme, md-card {\n    border-radius: 10px;\n}\n\n.nr-dashboard-switch.ng-scope {\n    background-color: rgba(255,255,255,.2) !important;\n}\n\n.nr-dashboard-switch.ng-scope:hover {\n    background-color: rgba(255,255,255,.5) !important;\n}\n\n.nr-dashboard-theme .nr-dashboard-button .md-button {\n    background-color: rgba(255,255,255,.2);\n}\n\n.md-button {\n    border-radius: 10px;\n}\n\n.nr-dashboard-cardpanel layout-column {\n    background-color: rgba(255,255,255,0.2) !important;\n    background-color: transparent !important;\n    border-radius: 10px !important;\n}\n\n.nr-dashboard-theme ui-card-panel {\n    border: none;\n}\n\n.nr-dashboard-template {\n    overflow-y: visible;\n}\n.nr-dashboard-theme md-content md-card {\n    background-color: transparent !important;\n}\n\n.nr-dashboard-theme ui-card-panel p.nr-dashboard-cardtitle {\n    color: rgba(255, 255, 255, 0.5);\n}\n</style>\n\n<script>\ndocument.ontouchmove = function (e) {\n    e.preventDefault();\n}\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "global",
+        "className": "",
+        "x": 180,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ddf29ae515db852c",
+        "type": "ui_button",
+        "z": "bd525b83beb32238",
+        "name": "Device status check ",
+        "group": "1f1cabb2752ec3ee",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Check devices status ",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "online",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 220,
+        "y": 80,
+        "wires": [
+            [
+                "604d3efc8632339c"
+            ]
+        ]
+    },
+    {
+        "id": "604d3efc8632339c",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 140,
+        "y": 120,
+        "wires": [
+            [
+                "f044f98261623ccf",
+                "c2c6d1132c6b81e4"
+            ]
+        ]
+    },
+    {
+        "id": "e99c594084499909",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Two level online status ",
+        "label": "Tower 2 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 620,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "559ff6886ca30479",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two online status ",
+        "topic": "/towertwo/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 1900,
+        "wires": [
+            [
+                "6e01975cf590eec3"
+            ]
+        ]
+    },
+    {
+        "id": "6e01975cf590eec3",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 150,
+        "y": 1840,
+        "wires": [
+            [
+                "9f6aa9c34382db9c"
+            ],
+            [
+                "23179d29ce79aa74"
+            ]
+        ]
+    },
+    {
+        "id": "9f6aa9c34382db9c",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 360,
+        "y": 1860,
+        "wires": [
+            [
+                "e99c594084499909"
+            ]
+        ]
+    },
+    {
+        "id": "23179d29ce79aa74",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 360,
+        "y": 1900,
+        "wires": [
+            [
+                "e99c594084499909"
+            ]
+        ]
+    },
+    {
+        "id": "731bd5f5f68e5538",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Domestic Level",
+        "topic": "/towertwo/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 1480,
+        "wires": [
+            [
+                "7f3c3ad9d838b626"
+            ]
+        ]
+    },
+    {
+        "id": "7f3c3ad9d838b626",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Domestic Level",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 400,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "8be1d76bb726e980",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Flush Level",
+        "topic": "/towertwo/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 1540,
+        "wires": [
+            [
+                "c0e0478b9d47a567"
+            ]
+        ]
+    },
+    {
+        "id": "c0e0478b9d47a567",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Flush Level",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 390,
+        "y": 1540,
+        "wires": []
+    },
+    {
+        "id": "4cd1e193d5af25f9",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 120,
+        "y": 1600,
+        "wires": [
+            [
+                "73acf8aaa044a907"
+            ]
+        ]
+    },
+    {
+        "id": "1a31072ea9206d4d",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 110,
+        "y": 1720,
+        "wires": [
+            [
+                "3fd13d2e520be5c2"
+            ]
+        ]
+    },
+    {
+        "id": "73acf8aaa044a907",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Domestic ",
+        "topic": "/towertwo/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 380,
+        "y": 1600,
+        "wires": []
+    },
+    {
+        "id": "3fd13d2e520be5c2",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Flush Tank",
+        "topic": "/towerone/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 360,
+        "y": 1740,
+        "wires": []
+    },
+    {
+        "id": "bc2bbd6eecb0fd2a",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 340,
+        "y": 1660,
+        "wires": []
+    },
+    {
+        "id": "e5d066f3a2eadb5b",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 350,
+        "y": 1780,
+        "wires": []
+    },
+    {
+        "id": "36d47062b764de78",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Two Dom ",
+        "topic": "/towertwo/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 1660,
+        "wires": [
+            [
+                "bc2bbd6eecb0fd2a"
+            ]
+        ]
+    },
+    {
+        "id": "dd5c0f86cb61eb32",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towertwo/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 90,
+        "y": 1780,
+        "wires": [
+            [
+                "e5d066f3a2eadb5b"
+            ]
+        ]
+    },
+    {
+        "id": "f044f98261623ccf",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 1400,
+        "wires": [
+            [
+                "7f3c3ad9d838b626",
+                "c0e0478b9d47a567",
+                "bc2bbd6eecb0fd2a",
+                "e5d066f3a2eadb5b",
+                "6e01975cf590eec3",
+                "ce0a918b368e5a7f",
+                "1f41fa323c046ac6",
+                "26c4cefabad7b568",
+                "6121ddf88626b595",
+                "a404ad9b7cb74277",
+                "1a141226fda9f239",
+                "27df0b062a58b51a",
+                "604f06c453fc8b73"
+            ]
+        ]
+    },
+    {
+        "id": "bc277149bf10bab8",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "0ddd6a1a6fd3f264",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Two Motors ",
+        "label": "Tower 2 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 610,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "762a2c5ba0f8df71",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T2 Motor",
+        "topic": "/unitone/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 60,
+        "y": 2000,
+        "wires": [
+            [
+                "ce0a918b368e5a7f"
+            ]
+        ]
+    },
+    {
+        "id": "ce0a918b368e5a7f",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 190,
+        "y": 1960,
+        "wires": [
+            [
+                "78df3376f3f71559"
+            ],
+            [
+                "5ce3f1177790a3e0"
+            ]
+        ]
+    },
+    {
+        "id": "78df3376f3f71559",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 380,
+        "y": 1940,
+        "wires": [
+            [
+                "bc277149bf10bab8"
+            ]
+        ]
+    },
+    {
+        "id": "5ce3f1177790a3e0",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 380,
+        "y": 1980,
+        "wires": [
+            [
+                "bc277149bf10bab8"
+            ]
+        ]
+    },
+    {
+        "id": "4d525f5e0346fb71",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "a6b76e5828be1b0b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Tower One level online status ",
+        "label": "Tower 1 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 820,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "14a4a8e7f077168b",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower One online status ",
+        "topic": "/towerone/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 310,
+        "y": 1180,
+        "wires": [
+            [
+                "26c4cefabad7b568"
+            ]
+        ]
+    },
+    {
+        "id": "26c4cefabad7b568",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 1120,
+        "wires": [
+            [
+                "78d05ad727e93850"
+            ],
+            [
+                "85a0f12b9424e00f"
+            ]
+        ]
+    },
+    {
+        "id": "78d05ad727e93850",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 560,
+        "y": 1140,
+        "wires": [
+            [
+                "4d525f5e0346fb71"
+            ]
+        ]
+    },
+    {
+        "id": "85a0f12b9424e00f",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 560,
+        "y": 1180,
+        "wires": [
+            [
+                "4d525f5e0346fb71"
+            ]
+        ]
+    },
+    {
+        "id": "921cb31cf971cff9",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Domestic Level",
+        "topic": "/toweroe/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 760,
+        "wires": [
+            [
+                "6121ddf88626b595"
+            ]
+        ]
+    },
+    {
+        "id": "6121ddf88626b595",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Domestic Level",
+        "group": "a6b76e5828be1b0b",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 600,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "72a308683c81566a",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Flush Level",
+        "topic": "/towerone/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 320,
+        "y": 820,
+        "wires": [
+            [
+                "a404ad9b7cb74277"
+            ]
+        ]
+    },
+    {
+        "id": "a404ad9b7cb74277",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Flush Level",
+        "group": "a6b76e5828be1b0b",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 590,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "e75fceb9c4399d01",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower One domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "a6b76e5828be1b0b",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 320,
+        "y": 880,
+        "wires": [
+            [
+                "f8bb1ce1f036bc9b"
+            ]
+        ]
+    },
+    {
+        "id": "d8cdb48793a4d147",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower One flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "a6b76e5828be1b0b",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 310,
+        "y": 1000,
+        "wires": [
+            [
+                "6274fc0dc5dd12e6"
+            ]
+        ]
+    },
+    {
+        "id": "f8bb1ce1f036bc9b",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Domestic ",
+        "topic": "/towerone/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 580,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "6274fc0dc5dd12e6",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Flush Tank",
+        "topic": "/towerone/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 560,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "1a141226fda9f239",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "a6b76e5828be1b0b",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 540,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "27df0b062a58b51a",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "a6b76e5828be1b0b",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 550,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "fcc36c203307b46c",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower One Dom ",
+        "topic": "/towerone/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 940,
+        "wires": [
+            [
+                "1a141226fda9f239"
+            ]
+        ]
+    },
+    {
+        "id": "aea4108766bd911a",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towerone/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 1060,
+        "wires": [
+            [
+                "27df0b062a58b51a"
+            ]
+        ]
+    },
+    {
+        "id": "471ccc3c0112ed60",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "a6b76e5828be1b0b",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower One Motors ",
+        "label": "Tower 1 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 850,
+        "y": 1220,
+        "wires": []
+    },
+    {
+        "id": "0eaf7a8e93198a43",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T1 Motor",
+        "topic": "/unitone/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 260,
+        "y": 1280,
+        "wires": [
+            [
+                "1f41fa323c046ac6"
+            ]
+        ]
+    },
+    {
+        "id": "1f41fa323c046ac6",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 1240,
+        "wires": [
+            [
+                "08e266dcb425d676"
+            ],
+            [
+                "e15d8af33fbc2c85"
+            ]
+        ]
+    },
+    {
+        "id": "08e266dcb425d676",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 600,
+        "y": 1220,
+        "wires": [
+            [
+                "471ccc3c0112ed60"
+            ]
+        ]
+    },
+    {
+        "id": "e15d8af33fbc2c85",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 580,
+        "y": 1260,
+        "wires": [
+            [
+                "471ccc3c0112ed60"
+            ]
+        ]
+    },
+    {
+        "id": "02492d9709a3fc89",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "9f2cbe512298990c",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Three level online status ",
+        "label": "Tower 3 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 490,
+        "y": 2520,
+        "wires": []
+    },
+    {
+        "id": "16803fadd3243435",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three online status ",
+        "topic": "/towerthree/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 2460,
+        "wires": [
+            [
+                "bc06f1a076092a5a"
+            ]
+        ]
+    },
+    {
+        "id": "bc06f1a076092a5a",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 2460,
+        "wires": [
+            [
+                "70327616963eb098"
+            ],
+            [
+                "3064e5015ac89957"
+            ]
+        ]
+    },
+    {
+        "id": "70327616963eb098",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 500,
+        "y": 2440,
+        "wires": [
+            [
+                "02492d9709a3fc89"
+            ]
+        ]
+    },
+    {
+        "id": "3064e5015ac89957",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 500,
+        "y": 2480,
+        "wires": [
+            [
+                "02492d9709a3fc89"
+            ]
+        ]
+    },
+    {
+        "id": "4adac85b2e65e58c",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Domestic Level",
+        "topic": "/towerthree/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 2180,
+        "wires": [
+            [
+                "8e2462aea6a9bf9f"
+            ]
+        ]
+    },
+    {
+        "id": "8e2462aea6a9bf9f",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Domestic Level",
+        "group": "9f2cbe512298990c",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 460,
+        "y": 2180,
+        "wires": []
+    },
+    {
+        "id": "14a4f432fb53cd52",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Flush Level",
+        "topic": "/towerthree/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 2220,
+        "wires": [
+            [
+                "05630f39b737d894"
+            ]
+        ]
+    },
+    {
+        "id": "05630f39b737d894",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Flush Level",
+        "group": "9f2cbe512298990c",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 470,
+        "y": 2240,
+        "wires": []
+    },
+    {
+        "id": "fb5461f21ff70ef9",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "9f2cbe512298990c",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 140,
+        "y": 2280,
+        "wires": [
+            [
+                "6097929345f6e472"
+            ]
+        ]
+    },
+    {
+        "id": "118275b11727be90",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "9f2cbe512298990c",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 130,
+        "y": 2360,
+        "wires": [
+            [
+                "9997e73690fb748c"
+            ]
+        ]
+    },
+    {
+        "id": "6097929345f6e472",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Domestic ",
+        "topic": "/towerthree/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 460,
+        "y": 2280,
+        "wires": []
+    },
+    {
+        "id": "9997e73690fb748c",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Flush Tank",
+        "topic": "/towerthree/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 490,
+        "y": 2360,
+        "wires": []
+    },
+    {
+        "id": "b8888208a028237f",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "9f2cbe512298990c",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 460,
+        "y": 2320,
+        "wires": []
+    },
+    {
+        "id": "30fa83c0cc681432",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "9f2cbe512298990c",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 490,
+        "y": 2400,
+        "wires": []
+    },
+    {
+        "id": "d374b29fbd37c8cb",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Three Dom ",
+        "topic": "/towerthree/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 2320,
+        "wires": [
+            [
+                "b8888208a028237f"
+            ]
+        ]
+    },
+    {
+        "id": "ee7b59f5e19055cf",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towerthree/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 2400,
+        "wires": [
+            [
+                "30fa83c0cc681432"
+            ]
+        ]
+    },
+    {
+        "id": "309fbc0e5050de22",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "9f2cbe512298990c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Three Motors ",
+        "label": "Tower 3 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 600,
+        "y": 2580,
+        "wires": []
+    },
+    {
+        "id": "8c3a4c021e648e14",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T3 Motor",
+        "topic": "/unitone/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 80,
+        "y": 2500,
+        "wires": [
+            [
+                "cd70cb27feec7fb6"
+            ]
+        ]
+    },
+    {
+        "id": "cd70cb27feec7fb6",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 2520,
+        "wires": [
+            [
+                "cf1620f2e5a8528b"
+            ],
+            [
+                "870965e309a5181a"
+            ]
+        ]
+    },
+    {
+        "id": "cf1620f2e5a8528b",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 360,
+        "y": 2560,
+        "wires": [
+            [
+                "309fbc0e5050de22"
+            ]
+        ]
+    },
+    {
+        "id": "870965e309a5181a",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 360,
+        "y": 2600,
+        "wires": [
+            [
+                "309fbc0e5050de22"
+            ]
+        ]
+    },
+    {
+        "id": "604f06c453fc8b73",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 230,
+        "y": 2120,
+        "wires": [
+            [
+                "8e2462aea6a9bf9f",
+                "05630f39b737d894",
+                "b8888208a028237f",
+                "30fa83c0cc681432",
+                "bc06f1a076092a5a",
+                "cd70cb27feec7fb6",
+                "d3e81e0e8e5fb7a0"
+            ]
+        ]
+    },
+    {
+        "id": "f1f89f9f06b458b9",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "133f04dc00a61d33",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Four level online status ",
+        "label": "Tower 4 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 530,
+        "y": 3040,
+        "wires": []
+    },
+    {
+        "id": "205f919ccd5cb6d5",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four online status ",
+        "topic": "/towerfour/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 2980,
+        "wires": [
+            [
+                "c7a34fdf46196b46"
+            ]
+        ]
+    },
+    {
+        "id": "c7a34fdf46196b46",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 2980,
+        "wires": [
+            [
+                "f942af397e0f5db0"
+            ],
+            [
+                "8dfa55c5066dbe2b"
+            ]
+        ]
+    },
+    {
+        "id": "f942af397e0f5db0",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 540,
+        "y": 2960,
+        "wires": [
+            [
+                "f1f89f9f06b458b9"
+            ]
+        ]
+    },
+    {
+        "id": "8dfa55c5066dbe2b",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 540,
+        "y": 3000,
+        "wires": [
+            [
+                "f1f89f9f06b458b9"
+            ]
+        ]
+    },
+    {
+        "id": "562ab0229ed1a06a",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Domestic Level",
+        "topic": "/towerfour/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 2700,
+        "wires": [
+            [
+                "98f5d96ca2baebe2"
+            ]
+        ]
+    },
+    {
+        "id": "98f5d96ca2baebe2",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Domestic Level",
+        "group": "133f04dc00a61d33",
+        "order": 1,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 500,
+        "y": 2700,
+        "wires": []
+    },
+    {
+        "id": "ee7df2795fd177b8",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Flush Level",
+        "topic": "/towerfour/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 2740,
+        "wires": [
+            [
+                "e2e921a6e868ffa8"
+            ]
+        ]
+    },
+    {
+        "id": "e2e921a6e868ffa8",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Flush Level",
+        "group": "133f04dc00a61d33",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 510,
+        "y": 2760,
+        "wires": []
+    },
+    {
+        "id": "58fedbff2c8d631e",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "133f04dc00a61d33",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 180,
+        "y": 2800,
+        "wires": [
+            [
+                "3097dbe62ab9d7b0"
+            ]
+        ]
+    },
+    {
+        "id": "1c8474ad8ecf6934",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "133f04dc00a61d33",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 170,
+        "y": 2880,
+        "wires": [
+            [
+                "ca12acaf59bddad3"
+            ]
+        ]
+    },
+    {
+        "id": "3097dbe62ab9d7b0",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Domestic ",
+        "topic": "/towerfour/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 500,
+        "y": 2800,
+        "wires": []
+    },
+    {
+        "id": "ca12acaf59bddad3",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Flush Tank",
+        "topic": "/towerfour/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 520,
+        "y": 2880,
+        "wires": []
+    },
+    {
+        "id": "70c774f7d183e25a",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "133f04dc00a61d33",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 500,
+        "y": 2840,
+        "wires": []
+    },
+    {
+        "id": "11c4bdaeddb93bd4",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "133f04dc00a61d33",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 530,
+        "y": 2920,
+        "wires": []
+    },
+    {
+        "id": "7332218aa231b015",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Four Dom ",
+        "topic": "/towerfour/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 2840,
+        "wires": [
+            [
+                "70c774f7d183e25a"
+            ]
+        ]
+    },
+    {
+        "id": "97429b684af10f4d",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towerfour/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 2920,
+        "wires": [
+            [
+                "11c4bdaeddb93bd4"
+            ]
+        ]
+    },
+    {
+        "id": "b8ecf4509fa19628",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "133f04dc00a61d33",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Four Motors ",
+        "label": "Tower 4 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 630,
+        "y": 3100,
+        "wires": []
+    },
+    {
+        "id": "7665f035d6e07371",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T4 Motor",
+        "topic": "/unittwo/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 3020,
+        "wires": [
+            [
+                "55dab2124a655c65"
+            ]
+        ]
+    },
+    {
+        "id": "55dab2124a655c65",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 3040,
+        "wires": [
+            [
+                "30b53da29207a921"
+            ],
+            [
+                "db0fe27082d8a07f"
+            ]
+        ]
+    },
+    {
+        "id": "30b53da29207a921",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 400,
+        "y": 3080,
+        "wires": [
+            [
+                "b8ecf4509fa19628"
+            ]
+        ]
+    },
+    {
+        "id": "db0fe27082d8a07f",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 400,
+        "y": 3120,
+        "wires": [
+            [
+                "b8ecf4509fa19628"
+            ]
+        ]
+    },
+    {
+        "id": "d3e81e0e8e5fb7a0",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 130,
+        "y": 2640,
+        "wires": [
+            [
+                "98f5d96ca2baebe2",
+                "e2e921a6e868ffa8",
+                "70c774f7d183e25a",
+                "11c4bdaeddb93bd4",
+                "55dab2124a655c65",
+                "c7a34fdf46196b46",
+                "21207ef6ae3efb5d"
+            ]
+        ]
+    },
+    {
+        "id": "5a27350dac91112b",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "8d475c133addddca",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Five level online status ",
+        "label": "Tower 5 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 540,
+        "y": 3600,
+        "wires": []
+    },
+    {
+        "id": "def0bb222bb5861c",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five online status ",
+        "topic": "/towerfive/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 3540,
+        "wires": [
+            [
+                "972d1c9dab875e15"
+            ]
+        ]
+    },
+    {
+        "id": "972d1c9dab875e15",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 370,
+        "y": 3540,
+        "wires": [
+            [
+                "c29e774ff23f4ff9"
+            ],
+            [
+                "3e772ce495b55ef1"
+            ]
+        ]
+    },
+    {
+        "id": "c29e774ff23f4ff9",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 560,
+        "y": 3520,
+        "wires": [
+            [
+                "5a27350dac91112b"
+            ]
+        ]
+    },
+    {
+        "id": "3e772ce495b55ef1",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 560,
+        "y": 3560,
+        "wires": [
+            [
+                "5a27350dac91112b"
+            ]
+        ]
+    },
+    {
+        "id": "b56a6a8d4ffa60d6",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Domestic Level",
+        "topic": "/towerfive/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 3260,
+        "wires": [
+            [
+                "c5573ee48f1673c1"
+            ]
+        ]
+    },
+    {
+        "id": "c5573ee48f1673c1",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Domestic Level",
+        "group": "8d475c133addddca",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 520,
+        "y": 3260,
+        "wires": []
+    },
+    {
+        "id": "fba2b0b3f625d1b7",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Flush Level",
+        "topic": "/towerfive/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 3300,
+        "wires": [
+            [
+                "eb4d020937f8ea97"
+            ]
+        ]
+    },
+    {
+        "id": "eb4d020937f8ea97",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Flush Level",
+        "group": "8d475c133addddca",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 520,
+        "y": 3300,
+        "wires": []
+    },
+    {
+        "id": "8d5193d24317de21",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "8d475c133addddca",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 200,
+        "y": 3360,
+        "wires": [
+            [
+                "549cc1b7f173bf3c"
+            ]
+        ]
+    },
+    {
+        "id": "4de2ca91639094d5",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "8d475c133addddca",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 190,
+        "y": 3440,
+        "wires": [
+            [
+                "fd8e2364a1ce2aa4"
+            ]
+        ]
+    },
+    {
+        "id": "549cc1b7f173bf3c",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Domestic ",
+        "topic": "/towerfive/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 520,
+        "y": 3360,
+        "wires": []
+    },
+    {
+        "id": "fd8e2364a1ce2aa4",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Flush Tank",
+        "topic": "/towerfive/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 540,
+        "y": 3440,
+        "wires": []
+    },
+    {
+        "id": "1aa12118d0a75de1",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "8d475c133addddca",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 520,
+        "y": 3400,
+        "wires": []
+    },
+    {
+        "id": "0e637ea43be96cb3",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "8d475c133addddca",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 550,
+        "y": 3480,
+        "wires": []
+    },
+    {
+        "id": "e5d785d4290a2905",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Five Dom ",
+        "topic": "/towerfive/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 3400,
+        "wires": [
+            [
+                "1aa12118d0a75de1"
+            ]
+        ]
+    },
+    {
+        "id": "b7739a77050a1a82",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towerfive/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 170,
+        "y": 3480,
+        "wires": [
+            [
+                "0e637ea43be96cb3"
+            ]
+        ]
+    },
+    {
+        "id": "5ee11365795b67fc",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "8d475c133addddca",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Five Motors ",
+        "label": "Tower 5 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 650,
+        "y": 3660,
+        "wires": []
+    },
+    {
+        "id": "b8387ae8108c3260",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T5 Motor",
+        "topic": "/unittwo/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 3580,
+        "wires": [
+            [
+                "85972c1215a56a83"
+            ]
+        ]
+    },
+    {
+        "id": "85972c1215a56a83",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 290,
+        "y": 3600,
+        "wires": [
+            [
+                "a46b26812298d163"
+            ],
+            [
+                "ec17a92cea6dc846"
+            ]
+        ]
+    },
+    {
+        "id": "a46b26812298d163",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 420,
+        "y": 3640,
+        "wires": [
+            [
+                "5ee11365795b67fc"
+            ]
+        ]
+    },
+    {
+        "id": "ec17a92cea6dc846",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 420,
+        "y": 3680,
+        "wires": [
+            [
+                "5ee11365795b67fc"
+            ]
+        ]
+    },
+    {
+        "id": "21207ef6ae3efb5d",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 150,
+        "y": 3200,
+        "wires": [
+            [
+                "c5573ee48f1673c1",
+                "eb4d020937f8ea97",
+                "1aa12118d0a75de1",
+                "0e637ea43be96cb3",
+                "85972c1215a56a83",
+                "972d1c9dab875e15",
+                "0ed43f9bbeecc9f1"
+            ]
+        ]
+    },
+    {
+        "id": "07224856b381b9e1",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "edaf8dc9282463e1",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Six level online status ",
+        "label": "Tower 6 Transmitter:- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 560,
+        "y": 4160,
+        "wires": []
+    },
+    {
+        "id": "8b4cae2a26b51c61",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six online status ",
+        "topic": "/towersix/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 4100,
+        "wires": [
+            [
+                "09c430e853c1c861"
+            ]
+        ]
+    },
+    {
+        "id": "09c430e853c1c861",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 390,
+        "y": 4100,
+        "wires": [
+            [
+                "49ecad831fdcecfe"
+            ],
+            [
+                "8b0dadd490dbe860"
+            ]
+        ]
+    },
+    {
+        "id": "49ecad831fdcecfe",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 580,
+        "y": 4080,
+        "wires": [
+            [
+                "07224856b381b9e1"
+            ]
+        ]
+    },
+    {
+        "id": "8b0dadd490dbe860",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 580,
+        "y": 4120,
+        "wires": [
+            [
+                "07224856b381b9e1"
+            ]
+        ]
+    },
+    {
+        "id": "4cc7559ac13d54cd",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Domestic Level",
+        "topic": "/towersix/dom/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 3820,
+        "wires": [
+            [
+                "c3e96c2709b0dadd"
+            ]
+        ]
+    },
+    {
+        "id": "c3e96c2709b0dadd",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Domestic Level",
+        "group": "edaf8dc9282463e1",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Domestic Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 530,
+        "y": 3820,
+        "wires": []
+    },
+    {
+        "id": "073f76d19f960f8f",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Flush Level",
+        "topic": "/towersix/flu/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 3860,
+        "wires": [
+            [
+                "ce6f67833e131d03"
+            ]
+        ]
+    },
+    {
+        "id": "ce6f67833e131d03",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Flush Level",
+        "group": "edaf8dc9282463e1",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "Flush Tank",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 540,
+        "y": 3860,
+        "wires": []
+    },
+    {
+        "id": "3221a733841216c0",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six domestic switch",
+        "label": "Domestic Motor ",
+        "tooltip": "",
+        "group": "edaf8dc9282463e1",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 220,
+        "y": 3920,
+        "wires": [
+            [
+                "8bcb205d41565420"
+            ]
+        ]
+    },
+    {
+        "id": "3923186fdf6aabed",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six flush switch",
+        "label": "Flush motor",
+        "tooltip": "",
+        "group": "edaf8dc9282463e1",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 200,
+        "y": 4000,
+        "wires": [
+            [
+                "bc14373fd3dde567"
+            ]
+        ]
+    },
+    {
+        "id": "8bcb205d41565420",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Domestic ",
+        "topic": "/towersix/dom/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 540,
+        "y": 3920,
+        "wires": []
+    },
+    {
+        "id": "bc14373fd3dde567",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Flush Tank",
+        "topic": "/towersix/flu/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 560,
+        "y": 4000,
+        "wires": []
+    },
+    {
+        "id": "6d3b61c452e15138",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "edaf8dc9282463e1",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "Domestic Motor ",
+        "label": "Domestic Motor ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 540,
+        "y": 3960,
+        "wires": []
+    },
+    {
+        "id": "ea79b2ef5961c994",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "edaf8dc9282463e1",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "name": "Flush Motor Status ",
+        "label": "Flush Motor",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 570,
+        "y": 4040,
+        "wires": []
+    },
+    {
+        "id": "b3fb7a6fbc306965",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Tower Six Dom ",
+        "topic": "/towersix/dom/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 200,
+        "y": 3960,
+        "wires": [
+            [
+                "6d3b61c452e15138"
+            ]
+        ]
+    },
+    {
+        "id": "ea9ed2f02042e63e",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "Flush Motor ",
+        "topic": "/towersix/flu/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 190,
+        "y": 4040,
+        "wires": [
+            [
+                "ea79b2ef5961c994"
+            ]
+        ]
+    },
+    {
+        "id": "e5ab10f4b1caf26b",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "edaf8dc9282463e1",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Tower Six Motors ",
+        "label": "Tower 6 Motor :- ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 670,
+        "y": 4220,
+        "wires": []
+    },
+    {
+        "id": "92d9eb18812eab45",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "T6 Motor",
+        "topic": "/unittwo/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 4140,
+        "wires": [
+            [
+                "a2b822b3cdf016b0"
+            ]
+        ]
+    },
+    {
+        "id": "a2b822b3cdf016b0",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 310,
+        "y": 4160,
+        "wires": [
+            [
+                "21106caf7abbdba7"
+            ],
+            [
+                "451eb38a3789a6f3"
+            ]
+        ]
+    },
+    {
+        "id": "21106caf7abbdba7",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 440,
+        "y": 4200,
+        "wires": [
+            [
+                "e5ab10f4b1caf26b"
+            ]
+        ]
+    },
+    {
+        "id": "451eb38a3789a6f3",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 440,
+        "y": 4240,
+        "wires": [
+            [
+                "e5ab10f4b1caf26b"
+            ]
+        ]
+    },
+    {
+        "id": "0ed43f9bbeecc9f1",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 170,
+        "y": 3760,
+        "wires": [
+            [
+                "c3e96c2709b0dadd",
+                "ce6f67833e131d03",
+                "6d3b61c452e15138",
+                "ea79b2ef5961c994",
+                "a2b822b3cdf016b0",
+                "09c430e853c1c861"
+            ]
+        ]
+    },
+    {
+        "id": "49bba75add0c347d",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "339d0edc.4ffe02",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "SUMP Two Level ",
+        "label": "SUMP Level Tester ",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 770,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "09277a7b8150a00c",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "topic": "/sumptwo/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 390,
+        "y": 500,
+        "wires": [
+            [
+                "000d180293fa8fe9"
+            ]
+        ]
+    },
+    {
+        "id": "000d180293fa8fe9",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 630,
+        "y": 500,
+        "wires": [
+            [
+                "996f77140355a0bc"
+            ],
+            [
+                "68652a5a26a2dbb3"
+            ]
+        ]
+    },
+    {
+        "id": "996f77140355a0bc",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 820,
+        "y": 480,
+        "wires": [
+            [
+                "49bba75add0c347d"
+            ]
+        ]
+    },
+    {
+        "id": "68652a5a26a2dbb3",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 820,
+        "y": 520,
+        "wires": [
+            [
+                "49bba75add0c347d"
+            ]
+        ]
+    },
+    {
+        "id": "53fd973c06dd5793",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "topic": "/sumpone/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 410,
+        "y": 220,
+        "wires": [
+            [
+                "d888c8bde7dd49a5"
+            ]
+        ]
+    },
+    {
+        "id": "d888c8bde7dd49a5",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "group": "339d0edc.4ffe02",
+        "order": 2,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "SUMP 1",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 730,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "11fcf3fe42229a05",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Two",
+        "topic": "/sumptwo/level",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 400,
+        "y": 260,
+        "wires": [
+            [
+                "2035e38dc677839a"
+            ]
+        ]
+    },
+    {
+        "id": "2035e38dc677839a",
+        "type": "ui_gauge",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Two",
+        "group": "339d0edc.4ffe02",
+        "order": 3,
+        "width": 3,
+        "height": 3,
+        "gtype": "donut",
+        "title": "SUMP Two",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 750,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "acb20cc87e95754a",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "label": "SUMP One",
+        "tooltip": "",
+        "group": "339d0edc.4ffe02",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 410,
+        "y": 320,
+        "wires": [
+            [
+                "21356274a226096f"
+            ]
+        ]
+    },
+    {
+        "id": "435260f3f3df46df",
+        "type": "ui_switch",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Two",
+        "label": "SUMP Two",
+        "tooltip": "",
+        "group": "339d0edc.4ffe02",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 410,
+        "y": 400,
+        "wires": [
+            [
+                "5461265311ad824b"
+            ]
+        ]
+    },
+    {
+        "id": "21356274a226096f",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "topic": "/sumpone/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 750,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5461265311ad824b",
+        "type": "mqtt out",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Two",
+        "topic": "/sumptwo/switch",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c0b429b69f2ac4ec",
+        "x": 770,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "82c6421519a786f7",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "339d0edc.4ffe02",
+        "order": 8,
+        "width": 4,
+        "height": 1,
+        "name": "SUMP One",
+        "label": "SUMP One",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 770,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ef4b5240d36dc40a",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "339d0edc.4ffe02",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "name": "SUMP Two",
+        "label": "SUMP Two",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 790,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "a4efe0247c8e5881",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP One",
+        "topic": "/sumpone/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "82c6421519a786f7"
+            ]
+        ]
+    },
+    {
+        "id": "c4601eb1c0bafd83",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Two",
+        "topic": "/sumptwo/dashStatus",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 420,
+        "y": 440,
+        "wires": [
+            [
+                "ef4b5240d36dc40a"
+            ]
+        ]
+    },
+    {
+        "id": "aab51c0b72047bd2",
+        "type": "ui_text",
+        "z": "bd525b83beb32238",
+        "group": "339d0edc.4ffe02",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "SUMP Motors",
+        "label": "SUMP Motors",
+        "format": "{{msg.payload}} ",
+        "layout": "row-spread",
+        "className": "",
+        "x": 900,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "60db77a9763668ab",
+        "type": "mqtt in",
+        "z": "bd525b83beb32238",
+        "name": "SUMP Motors",
+        "topic": "/sumptwo/motor/online",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "c0b429b69f2ac4ec",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 370,
+        "y": 540,
+        "wires": [
+            [
+                "4b4268d2ab3718d3"
+            ]
+        ]
+    },
+    {
+        "id": "4b4268d2ab3718d3",
+        "type": "switch",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "Online",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "Online",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 560,
+        "wires": [
+            [
+                "8216404295d2255c"
+            ],
+            [
+                "7c08207696b7a07c"
+            ]
+        ]
+    },
+    {
+        "id": "8216404295d2255c",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Online",
+        "output": "str",
+        "x": 680,
+        "y": 600,
+        "wires": [
+            [
+                "aab51c0b72047bd2"
+            ]
+        ]
+    },
+    {
+        "id": "7c08207696b7a07c",
+        "type": "template",
+        "z": "bd525b83beb32238",
+        "name": "clearn status after showing",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "Offline",
+        "output": "str",
+        "x": 680,
+        "y": 640,
+        "wires": [
+            [
+                "aab51c0b72047bd2"
+            ]
+        ]
+    },
+    {
+        "id": "c2c6d1132c6b81e4",
+        "type": "change",
+        "z": "bd525b83beb32238",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "d888c8bde7dd49a5",
+                "2035e38dc677839a",
+                "82c6421519a786f7",
+                "ef4b5240d36dc40a",
+                "4b4268d2ab3718d3",
+                "000d180293fa8fe9"
+            ]
+        ]
+    },
+    {
+        "id": "339d0edc.4ffe02",
+        "type": "ui_group",
+        "name": "SUMP Tank ",
+        "tab": "a2490d0e.a872b",
+        "order": 2,
+        "disp": true,
+        "width": "4",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1f1cabb2752ec3ee",
+        "type": "ui_group",
+        "name": "Check devices status ",
+        "tab": "a2490d0e.a872b",
+        "order": 1,
+        "disp": true,
+        "width": "27",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0ddd6a1a6fd3f264",
+        "type": "ui_group",
+        "name": "Tower Two",
+        "tab": "a2490d0e.a872b",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "c0b429b69f2ac4ec",
+        "type": "mqtt-broker",
+        "name": "Mosquitto ",
+        "broker": "test.mosquitto.org",
+        "port": "1883",
+        "clientid": "pi",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "a6b76e5828be1b0b",
+        "type": "ui_group",
+        "name": "Tower One Dashboard",
+        "tab": "a2490d0e.a872b",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9f2cbe512298990c",
+        "type": "ui_group",
+        "name": "Tower Three Dashboard ",
+        "tab": "a2490d0e.a872b",
+        "order": 6,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "133f04dc00a61d33",
+        "type": "ui_group",
+        "name": "Tower Four Dashboard ",
+        "tab": "a2490d0e.a872b",
+        "order": 7,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8d475c133addddca",
+        "type": "ui_group",
+        "name": "Tower Five Dashboard ",
+        "tab": "a2490d0e.a872b",
+        "order": 8,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "edaf8dc9282463e1",
+        "type": "ui_group",
+        "name": "Tower Six Dashbaord ",
+        "tab": "a2490d0e.a872b",
+        "order": 9,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a2490d0e.a872b",
+        "type": "ui_tab",
+        "name": "Hilsal Industries | Water level dashboard ",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
