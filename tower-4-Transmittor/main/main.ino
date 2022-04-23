@@ -35,6 +35,9 @@
 #define MESSAGES "/towerfour/dom/messages"
 //#define FLU_MESSAGES "/towerfour/flu/messages"
 
+#define DOM_DASHBOARD_SWITCH "/towerfour/dom/switch"
+#define FLU_DASHBOARD_SWITCH "/towerfour/flu/switch"
+
 //--------for Domestic Tank
 bool dom_onTimStartFlag = false;
 bool dom_firstDegenFlag = false;
@@ -67,12 +70,14 @@ unsigned long flu_degenStartTime;//3600000; //Degeneration time 1Hr
 bool flu_motorConditionFlag = false;
 
 //--------ETherNet Config-----
+
+
 short failCount = 0;
 long previousMillis;
 
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xDD };
 
-IPAddress ip(192, 168, 1, 87);
+IPAddress ip(192, 168, 1, 94);
 IPAddress myDns(192, 168, 1, 1);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
@@ -85,18 +90,63 @@ void(* resetFunc) (void) = 0;
 
 //--------------CallBack
 void callback(char* topic, byte* payload, unsigned int length) {
-
+  char messageBuffer[30];  //somewhere to put the message
   Serial.print(F("Message arrived in topic: "));
   Serial.println(topic);
 
-  Serial.print(F("Message:"));
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
+  memcpy(messageBuffer, payload, length);  //copy in the payload
+  messageBuffer[length] = '\0';  //convert copied payload to a C style string
+  Serial.println(messageBuffer);  //print the buffer if you want to
+
   Serial.println("-----------------------");
-  if (strcmp(topic, "/online") == 0) {
-    //    Serial.println("Online check status ");
-    //    mqttClient.publish(ONLINESTATUS, "Online");
+  if (strcmp(messageBuffer, "true") == 0 && strcmp(topic, DOM_DASHBOARD_SWITCH) == 0) { //for T4 DOM
+    Serial.println("T4-DOM: Dashboard switch On ");
+    mqttClient.publish(MESSAGES, "T4-DOM: Dashboard switch On ");
+    dom_motorConditionFlag = true;
+    //motor on time
+    //motorOnFlag = true;
+    if (!dom_onTimStartFlag) {
+      dom_onTime = millis();
+      dom_onTimStartFlag = true;
+    }
+  }
+  if (strcmp(messageBuffer, "false") == 0 && strcmp(topic, DOM_DASHBOARD_SWITCH) == 0) { //for T4 DOM
+    Serial.println("T4-DOM: Dashboard switch Off");
+    mqttClient.publish(MESSAGES, "T4-DOM: Dashboard switch Off");
+    Serial.println("Motor OFF");//full
+    dom_motorOnFlag = false;
+    dom_motorWorking = false;
+    dom_degenTimer = false;
+    dom_degenCount = 0;
+    dom_motorConditionFlag = false;
+    dom_onTimStartFlag = false;
+    dom_firstDegenFlag = false;
+    dom_dryRunError = false;
+  }
+  //--flu
+  if (strcmp(messageBuffer, "true") == 0 && strcmp(topic, FLU_DASHBOARD_SWITCH) == 0) { //for T4 DOM
+    Serial.println("T4-FLU: Dashboard switch On ");
+    mqttClient.publish(MESSAGES, "T4-FLU: Dashboard switch On ");
+    flu_motorConditionFlag = true;
+    //motor on time
+    //motorOnFlag = true;
+    if (!flu_onTimStartFlag) {
+      flu_onTime = millis();
+      flu_onTimStartFlag = true;
+    }
+  }
+  if (strcmp(messageBuffer, "false") == 0 && strcmp(topic, FLU_DASHBOARD_SWITCH) == 0) { //for T4 DOM
+    Serial.println("T4-FLU: Dashboard switch Off");
+    mqttClient.publish(MESSAGES, "T4-FLU: Dashboard switch Off");
+    Serial.println("Motor OFF");//full
+    flu_motorOnFlag = false;
+    flu_motorWorking = false;
+    flu_degenTimer = false;
+    flu_degenCount = 0;
+    flu_motorConditionFlag = false;
+    flu_onTimStartFlag = false;
+    flu_firstDegenFlag = false;
+    flu_dryRunError = false;
   }
 }
 void setup() {
@@ -109,7 +159,7 @@ void setup() {
   Serial.begin(9600);
   delay(100);
   Serial.println(F("Initialize Ethernet with IP:"));
-  
+
   if (Ethernet.linkStatus() == LinkOFF) {
     Serial.println(F("Ethernet cable is not connected."));
   }
@@ -121,19 +171,23 @@ void setup() {
   delay(1000);
 
   Serial.println(F("Tower 4 Level Testor"));
-  
+
   mqttClient.setClient(client);
   mqttClient.setCallback(callback);
-  
+
   mqttClient.setServer("192.168.1.85", 1883); //for using local broker
-  
+
   Serial.println(F("MQTT client configured"));
   Serial.print(F(" \n Trying to connect as a client -> "));
   int connectionflag = mqttClient.connect(CLIENT_ID);
   Serial.println(connectionflag);
-  
+
   mqttClient.subscribe(DOM_DASH_MOTORSTATUS);
   mqttClient.subscribe(FLU_DASH_MOTORSTATUS);
+  //----
+  mqttClient.subscribe(DOM_DASHBOARD_SWITCH);
+  mqttClient.subscribe(FLU_DASHBOARD_SWITCH);
+  //----
   Serial.println(F("subscribe Topics "));
 }
 
@@ -169,7 +223,7 @@ int dom_checkLevel() {
     Serial.println("Motor ON");//low level
     dom_motorConditionFlag = true;
     //motor on time
-    //motorOnFlag = true;
+    dom_motorOnFlag = true;
     if (!dom_onTimStartFlag) {
       dom_onTime = millis();
       dom_onTimStartFlag = true;
@@ -267,7 +321,7 @@ void dom_dryRunCheck() {
         dom_motorConditionFlag = false;
         Serial.println("Error");
         dom_dryRunError = true;
-        mqttClient.publish(MESSAGES, "T1 - DOM DRY RUN");
+        mqttClient.publish(MESSAGES, "T4 - DOM DRY RUN");
         //Degen Count completed
         //Inform to check the overall system
       }
@@ -319,7 +373,7 @@ void flu_dryRunCheck() {
         flu_motorConditionFlag = false;
         Serial.println("Error");
         flu_dryRunError = true;
-        mqttClient.publish(MESSAGES, "T1 Flush tank DR");
+        mqttClient.publish(MESSAGES, "T4 Flush tank DR");
         //Degen Count completed
         //Inform to check the overall system
       }
