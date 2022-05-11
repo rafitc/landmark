@@ -27,7 +27,7 @@
 
 //-----------------------------
 #define T1_DOM_LEVELTOPIC "/towerone/dom/level"
-#define T2_DOM_LEVELTOPIC "/towertwo/dom/level""
+#define T2_DOM_LEVELTOPIC "/towertwo/dom/level"
 #define T3_DOM_LEVELTOPIC "/towerthree/dom/level"
 
 #define T1_FLU_LEVELTOPIC  "/towerone/flu/level"
@@ -266,6 +266,26 @@ void setup() {
 
   boolean r;
   r = mqttClient.subscribe(T1_DOM_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+
+  r = mqttClient.subscribe(T2_DOM_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+
+  r = mqttClient.subscribe(T3_DOM_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+
+  r = mqttClient.subscribe(T1_FLU_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+
+  r = mqttClient.subscribe(T2_FLU_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+
+  r = mqttClient.subscribe(T3_FLU_MOTORSTATUS);
   Serial.println(F("subscribed status MOTORSTATUS"));
   Serial.println(r);
 
