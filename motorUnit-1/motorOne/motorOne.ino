@@ -4,25 +4,26 @@
 
 #define INTERVAL    2000 // 2 sec delay between publishing
 
-#define CLIENT_ID   "Tower_ONE_SWITCH" //client ID | Unique ID for SUMP & motor
+#define CLIENT_ID   "Unit One Motor" //client ID | Unique ID for SUMP & motor
 
 #define T1_DOM_ON 2
 #define T1_DOM_OFF 3
 
-#define T1_FLU_ON 4
-#define T1_FLU_OFF 5
+#define T1_FLU_ON 9
+#define T1_FLU_OFF 4
 
-#define T2_DOM_ON 6
-#define T2_DOM_OFF 7
+#define T2_DOM_ON 5
+#define T2_DOM_OFF 6
 
-#define T2_FLU_ON 8
-#define T2_FLU_OFF 9
+#define T2_FLU_ON 7
+#define T2_FLU_OFF 8
 
-#define T3_DOM_ON 7
-#define T3_DOM_OFF 7
+#define T3_DOM_ON 14
+#define T3_DOM_OFF 15
 
-#define T3_FLU_ON 14
-#define T3_FLU_OFF 15
+#define T3_FLU_ON 16
+#define T3_FLU_OFF 17
+
 
 //-----------------------------
 #define T1_DOM_LEVELTOPIC "/towerone/dom/level"

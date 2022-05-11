@@ -17,7 +17,6 @@
 
 #define DOM_LEVELTOPIC "/towerone/dom/level"
 #define FLU_LEVELTOPIC "/towerone/flu/level"
-
 #define ONLINESTATUS "/towerone/online"
 
 #define DOM_MOTORSTATUS "/towerone/dom/motorstatus"
