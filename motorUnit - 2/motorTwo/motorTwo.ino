@@ -308,6 +308,13 @@ void setup() {
   r = mqttClient.subscribe(T5_FLU_MOTORSTATUS);
   Serial.println(F("subscribed status MOTORSTATUS"));
   Serial.println(r);
+  
+  r = mqttClient.subscribe(T3_DOM_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+  r = mqttClient.subscribe(T3_FLU_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
 
   //  r = mqttClient.subscribe(LEVELTOPIC);
   //  Serial.println("subscribed status LEVELTOPIC");
