@@ -88,6 +88,13 @@ bool t3_dom_motorFunctionFlag  = false;
 bool t3_flu_motorFunctionFlag  = false;
 //--------ETherNet Config-----
 
+bool dom_dataReceived_1 = false;
+bool dom_dataReceived_2 = false;
+bool dom_dataReceived_3 = false;
+
+bool flu_dataReceived_1 = false;
+bool flu_dataReceived_2 = false;
+bool flu_dataReceived_3 = false;
 
 int failCount = 0;
 long previousMillis;
@@ -122,31 +129,33 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("-----");
   //-----T1 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T1_DOM_MOTORSTATUS) == 0) { //for T1 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    //Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T1_MESSAGES, "T1:DOM Motor ON");
     t1_dom_motorConditionFlag = true;
     if (!t1_dom_motorFunctionFlag) {
       t1_dom_turnOn();
     }
-
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T1_DOM_MOTORSTATUS) == 0) {
-    Serial.println("Turn OFF Motor Command Received ");
+   // Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(T1_MESSAGES, "Motor ONe OFFF");
     t1_dom_motorConditionFlag = true;
+    if(!dom_dataReceived_1){
+      t1_dom_turnOff();
+      dom_dataReceived_1 = true;
+    }
     if (t1_dom_motorFunctionFlag) {
       t1_dom_turnOff();
     }
   }
   //-----T2 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T2_DOM_MOTORSTATUS) == 0) { //for T2 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    //Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T2_MESSAGES, "T1:DOM Motor ON");
     t2_dom_motorConditionFlag = true;
     if (!t2_dom_motorFunctionFlag) {
       t2_dom_turnOn();
     }
-
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T2_DOM_MOTORSTATUS) == 0) {
     Serial.println("Turn OFF Motor Command Received ");
@@ -155,29 +164,36 @@ void callback(char* topic, byte* payload, unsigned int length) {
     if (t2_dom_motorFunctionFlag) {
       t2_dom_turnOff();
     }
+    if(!dom_dataReceived_2){
+      dom_dataReceived_2 = true;
+      t2_dom_turnOff();
+    }
   }
   //-----T3 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T3_DOM_MOTORSTATUS) == 0) { //for T3 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    //Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T3_MESSAGES, "T1:DOM Motor ON");
     t3_dom_motorConditionFlag = true;
     if (!t3_dom_motorFunctionFlag) {
       t3_dom_turnOn();
     }
-
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T3_DOM_MOTORSTATUS) == 0) {
-    Serial.println("Turn OFF Motor Command Received ");
+    //Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(T3_MESSAGES, "Motor ONe OFFF");
     t3_dom_motorConditionFlag = true;
     if (t3_dom_motorFunctionFlag) {
+      t3_dom_turnOff();
+    }
+    if(!dom_dataReceived_3){
+      dom_dataReceived_3 = true;
       t3_dom_turnOff();
     }
   }
   //----Flush
   //-----T1 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T1_FLU_MOTORSTATUS) == 0) { //for T3 DOM
-    Serial.println(F("T1-FLU: TurnOn Motor "));
+    //Serial.println(F("T1-FLU: TurnOn Motor "));
     mqttClient.publish(T1_MESSAGES, "T1:FLU Motor ON");
     t1_flu_motorConditionFlag = true;
     if (!t1_flu_motorFunctionFlag) {
@@ -186,16 +202,20 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T1_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T1-FLU: TurnOff Motor "));
+    //Serial.println(F("T1-FLU: TurnOff Motor "));
     mqttClient.publish(T1_MESSAGES, "Motor ONe OFFF");
     t1_flu_motorConditionFlag = true;
     if (t1_flu_motorFunctionFlag) {
       t1_flu_turnOff();
     }
+    if(!flu_dataReceived_1){
+      t1_flu_turnOff();
+      flu_dataReceived_1 = true;
+    }
   }
   //-----T2 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T2_FLU_MOTORSTATUS) == 0) { //for T3 DOM
-    Serial.println(F("T2-FLU: TurnOn Motor "));
+    //Serial.println(F("T2-FLU: TurnOn Motor "));
     mqttClient.publish(T2_MESSAGES, "T2:FLU Motor ON");
     t2_flu_motorConditionFlag = true;
     if (!t2_flu_motorFunctionFlag) {
@@ -204,16 +224,20 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T2_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T2-FLU: TurnOff Motor "));
+    //Serial.println(F("T2-FLU: TurnOff Motor "));
     mqttClient.publish(T2_MESSAGES, "Motor ONe OFFF");
     t2_flu_motorConditionFlag = true;
     if (t2_flu_motorFunctionFlag) {
       t2_flu_turnOff();
     }
+    if(!flu_dataReceived_2){
+      t2_flu_turnOff();
+      flu_dataReceived_2 = true;
+    }
   }
   //-----T3 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T3_FLU_MOTORSTATUS) == 0) { //for T3 DOM
-    Serial.println(F("T3-FLU: TurnOn Motor "));
+    //Serial.println(F("T3-FLU: TurnOn Motor "));
     mqttClient.publish(T3_MESSAGES, "T3:FLU Motor ON");
     t3_flu_motorConditionFlag = true;
     if (!t3_flu_motorFunctionFlag) {
@@ -222,11 +246,15 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T3_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T3-FLU: TurnOff Motor "));
+    //Serial.println(F("T3-FLU: TurnOff Motor "));
     mqttClient.publish(T3_MESSAGES, "Motor ONe OFFF");
     t3_flu_motorConditionFlag = true;
     if (t3_flu_motorFunctionFlag) {
       t3_flu_turnOff();
+    }
+    if(!flu_dataReceived_3){
+      t3_flu_turnOff();
+      flu_dataReceived_3 = true;
     }
   }
 }
@@ -309,7 +337,7 @@ bool t1_dom_sendData() {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T1_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -317,7 +345,7 @@ bool t1_dom_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T1_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -332,14 +360,14 @@ bool t2_dom_sendData() {
   msgBuffer = "Online";
   sendStatusFlag = mqttClient.publish(UNIT_1_ONLINESTATUS, msgBuffer);
   if (sendStatusFlag == false) {
-    Serial.println(F("Error while publishsing "));
+    Serial.print(F("| Error while publishsing "));
     return false;
   }
   if (t2_dom_motorFunctionFlag) {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T2_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.println(F("| Error while publishsing "));
       return false;
     }
   }
@@ -347,7 +375,7 @@ bool t2_dom_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T2_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.println(F("| Error while publishsing "));
       return false;
     }
   }
@@ -362,14 +390,14 @@ bool t3_dom_sendData() {
   msgBuffer = "Online";
   sendStatusFlag = mqttClient.publish(UNIT_1_ONLINESTATUS, msgBuffer);
   if (sendStatusFlag == false) {
-    Serial.println(F("Error while publishsing "));
+    Serial.println(F("| Error while publishsing "));
     return false;
   }
   if (t1_dom_motorFunctionFlag) {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T3_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.println(F("| Error while publishsing "));
       return false;
     }
   }
@@ -377,7 +405,7 @@ bool t3_dom_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T3_DOM_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -392,14 +420,14 @@ bool t1_flu_sendData() {
   msgBuffer = "Online";
   sendStatusFlag = mqttClient.publish(UNIT_1_ONLINESTATUS, msgBuffer);
   if (sendStatusFlag == false) {
-    Serial.println(F("Error while publishsing "));
+    Serial.print(F("| Error while publishsing "));
     return false;
   }
   if (t1_flu_motorFunctionFlag) {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T1_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -407,7 +435,7 @@ bool t1_flu_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T1_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -422,14 +450,14 @@ bool t2_flu_sendData() {
   msgBuffer = "Online";
   sendStatusFlag = mqttClient.publish(UNIT_1_ONLINESTATUS, msgBuffer);
   if (sendStatusFlag == false) {
-    Serial.println(F("Error while publishsing "));
+    Serial.print(F("| Error while publishsing "));
     return false;
   }
   if (t2_flu_motorFunctionFlag) {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T2_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -437,7 +465,7 @@ bool t2_flu_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T2_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -452,14 +480,14 @@ bool t3_flu_sendData() {
   msgBuffer = "Online";
   sendStatusFlag = mqttClient.publish(UNIT_1_ONLINESTATUS, msgBuffer);
   if (sendStatusFlag == false) {
-    Serial.println(F("Error while publishsing "));
+    Serial.print(F("| Error while publishsing "));
     return false;
   }
   if (t3_flu_motorFunctionFlag) {
     msgBuffer = "ON";
     sendStatusFlag = mqttClient.publish(T3_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
@@ -467,11 +495,11 @@ bool t3_flu_sendData() {
     msgBuffer = "OFF";
     sendStatusFlag = mqttClient.publish(T3_FLU_DASH_MOTORSTATUS, msgBuffer);
     if (sendStatusFlag == false) {
-      Serial.println(F("Error while publishsing "));
+      Serial.print(F("| Error while publishsing "));
       return false;
     }
   }
-  Serial.println(F("Published Data "));
+  Serial.print(F("| Published Data "));
   return true;
 }
 void listenData() {
