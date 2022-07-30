@@ -99,9 +99,9 @@ bool t6_flu_dataReceived = false;
 int failCount = 0;
 long previousMillis;
 
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0xEE };
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xAF, 0xDE, 0xEE };
 
-IPAddress ip(192, 168, 1, 87);
+IPAddress ip(192, 168, 1, 97);
 IPAddress myDns(8, 8, 8, 8);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
