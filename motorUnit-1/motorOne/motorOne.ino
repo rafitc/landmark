@@ -129,7 +129,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("-----");
   //-----T1 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T1_DOM_MOTORSTATUS) == 0) { //for T1 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    //Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T1_MESSAGES, "T1:DOM Motor ON");
     t1_dom_motorConditionFlag = true;
     if (!t1_dom_motorFunctionFlag) {
@@ -137,7 +137,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T1_DOM_MOTORSTATUS) == 0) {
-    Serial.println("Turn OFF Motor Command Received ");
+    // Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(T1_MESSAGES, "Motor ONE OFF");
     t1_dom_motorConditionFlag = true;
     if (t1_dom_motorFunctionFlag) {
@@ -150,7 +150,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   //-----T2 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T2_DOM_MOTORSTATUS) == 0) { //for T2 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    // Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T2_MESSAGES, "T1:DOM Motor ON");
     t2_dom_motorConditionFlag = true;
     if (!t2_dom_motorFunctionFlag) {
@@ -159,7 +159,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T2_DOM_MOTORSTATUS) == 0) {
-    Serial.println("Turn OFF Motor Command Received ");
+    // Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(T2_MESSAGES, "Motor ONe OFFF");
     t2_dom_motorConditionFlag = true;
     if (t2_dom_motorFunctionFlag) {
@@ -172,7 +172,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   //-----T6 DOM
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T6_DOM_MOTORSTATUS) == 0) { //for T6 DOM
-    Serial.println("T1-DOM: TurnOn Motor ");
+    // Serial.println("T1-DOM: TurnOn Motor ");
     mqttClient.publish(T6_MESSAGES, "T1:DOM Motor ON");
     t6_dom_motorConditionFlag = true;
     if (!t6_dom_motorFunctionFlag) {
@@ -181,7 +181,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T6_DOM_MOTORSTATUS) == 0) {
-    Serial.println("Turn OFF Motor Command Received ");
+    // Serial.println("Turn OFF Motor Command Received ");
     mqttClient.publish(T6_MESSAGES, "Motor ONe OFFF");
     t6_dom_motorConditionFlag = true;
     if (t6_dom_motorFunctionFlag) {
@@ -195,7 +195,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   //----Flush
   //-----T1 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T1_FLU_MOTORSTATUS) == 0) { //for T6 DOM
-    Serial.println(F("T1-FLU: TurnOn Motor "));
+    // Serial.println(F("T1-FLU: TurnOn Motor "));
     mqttClient.publish(T1_MESSAGES, "T1:FLU Motor ON");
     t1_flu_motorConditionFlag = true;
     if (!t1_flu_motorFunctionFlag) {
@@ -204,7 +204,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T1_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T1-FLU: TurnOff Motor "));
+    // Serial.println(F("T1-FLU: TurnOff Motor "));
     mqttClient.publish(T1_MESSAGES, "Motor ONe OFFF");
     t1_flu_motorConditionFlag = true;
     if (t1_flu_motorFunctionFlag) {
@@ -217,7 +217,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   //-----T2 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T2_FLU_MOTORSTATUS) == 0) { //for T6 DOM
-    Serial.println(F("T2-FLU: TurnOn Motor "));
+    // Serial.println(F("T2-FLU: TurnOn Motor "));
     mqttClient.publish(T2_MESSAGES, "T2:FLU Motor ON");
     t2_flu_motorConditionFlag = true;
     if (!t2_flu_motorFunctionFlag) {
@@ -226,7 +226,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T2_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T2-FLU: TurnOff Motor "));
+    // Serial.println(F("T2-FLU: TurnOff Motor "));
     mqttClient.publish(T2_MESSAGES, "Motor ONe OFFF");
     t2_flu_motorConditionFlag = true;
     if (t2_flu_motorFunctionFlag) {
@@ -239,7 +239,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   //-----T6 FLU
   if (strcmp(messageBuffer, "turnOnMotorOne") == 0 && strcmp(topic, T6_FLU_MOTORSTATUS) == 0) { //for T6 DOM
-    Serial.println(F("T6-FLU: TurnOn Motor "));
+    // Serial.println(F("T6-FLU: TurnOn Motor "));
     mqttClient.publish(T6_MESSAGES, "T6:FLU Motor ON");
     t6_flu_motorConditionFlag = true;
     if (!t6_flu_motorFunctionFlag) {
@@ -248,7 +248,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   }
   if (strcmp(messageBuffer, "turnOffMotorOne") == 0 && strcmp(topic, T6_FLU_MOTORSTATUS) == 0) {
-    Serial.println(F("T6-FLU: TurnOff Motor "));
+    // Serial.println(F("T6-FLU: TurnOff Motor "));
     mqttClient.publish(T6_MESSAGES, "Motor ONe OFFF");
     t6_flu_motorConditionFlag = true;
     if (t6_flu_motorFunctionFlag) {
@@ -504,26 +504,18 @@ void t1_dom_turnOn() {
   t1_dom_motorFunctionFlag = true;
   Serial.println(F("T1 -DOM motorON"));
   //M1_ON_RELAY
-  Serial.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
   digitalWrite(T1_DOM_ON, !HIGH);
-  Serial.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-  delay(500);
-  Serial.println("GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+  delay(2000);
   digitalWrite(T1_DOM_ON, !LOW);
-  Serial.println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 }
 void t1_dom_turnOff() {
   //Turn Off by 2Second control of starter box
   Serial.println(F("T1 -DOM motorOFF"));
   t1_dom_motorFunctionFlag = false;
   //M1_OFF_RELAY
-  Serial.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   digitalWrite(T1_DOM_OFF, !HIGH);
-  Serial.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-  delay(500);
-  Serial.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+  delay(2000);
   digitalWrite(T1_DOM_OFF, !LOW);
-  Serial.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 //  delay(2000);
 }
 
@@ -645,7 +637,6 @@ void loop() {
    mqttClient.loop();
   bool sendFlagcheck = false;
   if (millis() - previousMillis > INTERVAL) {
-    Serial.println("inside if");
     sendFlagcheck = t1_dom_sendData();
     sendFlagcheck = t2_dom_sendData();
     sendFlagcheck = t6_dom_sendData();
