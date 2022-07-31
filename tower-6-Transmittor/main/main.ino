@@ -27,13 +27,13 @@
 #define FLU_DASH_MOTORSTATUS "/towersix/flu/dashStatus"
 
 #define DRYRUNSTATUS "/towersix/dom/dryrunstatus"
-//#define FLU_DRYRUNSTATUS "/towersix/flu/dryrunstatus"
+#define FLU_DRYRUNSTATUS "/towersix/flu/dryrunstatus"
 
 #define DEGENSTATUS "/towersix/dom/degen"
-//#define FLU_DEGENSTATUS "/towersix/flu/degen"
+#define FLU_DEGENSTATUS "/towersix/flu/degen"
 
 #define MESSAGES "/towersix/dom/messages"
-//#define FLU_MESSAGES "/towersix/flu/messages"
+#define FLU_MESSAGES "/towersix/flu/messages"
 
 #define DOM_DASHBOARD_SWITCH "/towersix/dom/switch"
 #define FLU_DASHBOARD_SWITCH "/towersix/flu/switch"
@@ -532,7 +532,7 @@ void loop() {
   if (failCount > 5) {
     Serial.println("Resetting conection");
     delay(100);
-    reconnect()
+    reconnect();
     //resetFunc();
   }
   mqttClient.loop();

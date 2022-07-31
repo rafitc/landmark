@@ -301,10 +301,16 @@ void setup() {
   r = mqttClient.subscribe(T1_FLU_MOTORSTATUS);
   Serial.println(F("subscribed status MOTORSTATUS"));
   Serial.println(r);
-    r = mqttClient.subscribe(T2_DOM_MOTORSTATUS);
+  r = mqttClient.subscribe(T2_DOM_MOTORSTATUS);
   Serial.println(F("subscribed status MOTORSTATUS"));
   Serial.println(r);
   r = mqttClient.subscribe(T2_FLU_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+  r = mqttClient.subscribe(T6_DOM_MOTORSTATUS);
+  Serial.println(F("subscribed status MOTORSTATUS"));
+  Serial.println(r);
+  r = mqttClient.subscribe(T6_FLU_MOTORSTATUS);
   Serial.println(F("subscribed status MOTORSTATUS"));
   Serial.println(r);
 

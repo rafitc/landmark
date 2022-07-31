@@ -532,7 +532,7 @@ void loop() {
   if (failCount > 5) {
     Serial.println("Resetting conection");
     delay(100);
-    reconnect()
+    reconnect();
     //resetFunc();
   }
   mqttClient.loop();
