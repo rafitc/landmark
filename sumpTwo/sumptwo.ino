@@ -9,14 +9,14 @@
 #define DEGENCOUNT 2
 #define INTERVAL    2000 // 3 sec delay between publishing
 
-#define CLIENT_ID       "SUMP_1_LEVEL" //client ID | Unique ID for SUMP & motor
+#define CLIENT_ID       "SUMP_2_LEVEL" //client ID | Unique ID for SUMP & motor
 
-#define LEVELTOPIC "/sumpone/level"
-#define ONLINESTATUS "/sumpone/online"
-#define MOTORSTATUS "/motorone/motorstatus"
-#define DASH_MOTORSTATUS "/motorone/dashStatus"
-#define DRYRUNSTATUS "/sumpone/dryrunstatus"
-#define DEGENSTATUS "/sumpone/degen"
+#define LEVELTOPIC "/sumptwo/level"
+#define ONLINESTATUS "/sumptwo/online"
+#define MOTORSTATUS "/sumptwo/motor/motorstatus"
+#define DASH_MOTORSTATUS "/sumptwo/motor/dashStatus"
+#define DRYRUNSTATUS "/sumptwo/dryrunstatus"
+#define DEGENSTATUS "/sumptwo/degen"
 #define MESSAGES "/messages"
 
 bool onTimStartFlag = false;
@@ -38,9 +38,9 @@ bool motorConditionFlag = false;
 int failCount = 0;
 long previousMillis;
 
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEE, 0xAE, 0xED };
 
-IPAddress ip(192, 168, 1, 81);
+IPAddress ip(192, 168, 1, 82);
 IPAddress myDns(192, 168, 1, 1);
 IPAddress gateway(192, 168, 1, 1);
 IPAddress subnet(255, 255, 255, 0);
@@ -97,7 +97,7 @@ void setup() {
 // give the Ethernet shield a second to initialize:
 delay(1000);
 
-Serial.println(F("SUMP 1 Level Testor"));
+Serial.println(F("SUMP 2 Level Testor"));
 
 //setup MQTT client
 mqttClient.setClient(client);

@@ -25,7 +25,8 @@
 #define T6_FLU_OFF 8
 
 //-----------------------------
-#define T1_DOM_LEVELTOPIC "/towerone/dom/level"#define T2_DOM_LEVELTOPIC "/towertwo/dom/level"
+#define T1_DOM_LEVELTOPIC "/towerone/dom/level"
+#define T2_DOM_LEVELTOPIC "/towertwo/dom/level"
 #define T6_DOM_LEVELTOPIC "/towersix/dom/level"
 
 #define T1_FLU_LEVELTOPIC  "/towerone/flu/level"
